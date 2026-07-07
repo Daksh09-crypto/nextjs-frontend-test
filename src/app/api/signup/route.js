@@ -35,7 +35,7 @@ export async function POST(request) {
       }, { status: 400 });
     }
 
-    const client = await clientPromise; 
+   const client = await clientPromise; 
     const db = client.db("eng-app"); 
 
     const existing = await db.collection("users").findOne({ email: cleanemail }); 
@@ -47,20 +47,20 @@ export async function POST(request) {
       }, { status: 409 });
     } 
 
-    const hashedpass = await bcrypt.hash(cleanpassword, 10); 
+   // const hashedpass = await bcrypt.hash(cleanpassword, 10); 
    
     // FIX 1: Save as 'password' to ensure it stays consistent with your login file
-    const user = {
+   /* const user = {
       name: cleanname,
       email: cleanemail,
       password: hashedpass, 
-    };
+    };*/
 
-    const insert$id = await db.collection("users").insertOne(user);
+   // const insert$id = await db.collection("users").insertOne(user);
    
-    const user_id = insert$id.insertedId.toString(); 
+   // const user_id = insert$id.insertedId.toString(); 
        
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  /*  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
     const token = await new SignJWT({
       userid: user_id,
       email: cleanemail,
@@ -78,10 +78,10 @@ export async function POST(request) {
       path: "/",
       maxAge: 60 * 60 * 24 * 7, // 7 days
     });   
-
+*/
   return Response.json({
      success:true,
-     message:"user created "
+     message:"user creation , blocked by creator have fun !"
   })
 
   } catch (error) {
